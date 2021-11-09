@@ -47,6 +47,8 @@ export default class ReelsContainer {
         while (true) {
             const spinningPromises = reelsToSpin.map(reel => reel.spinOneTime());
             await Promise.all(spinningPromises);
+            //once everything is done we reshuffle
+            this.reshuffle();
             yield;
         }
     }
@@ -70,5 +72,12 @@ export default class ReelsContainer {
                 valuesSoFar[value] = true;
             }
             return false;
+    }
+
+    //this method randomizes the reels
+    private reshuffle() {
+        this.reels.forEach(reel => {
+            reel.sprites[0].texture = reel.textures[Math.floor(Math.random() * reel.textures.length)];
+        });
     }
 }

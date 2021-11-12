@@ -59,7 +59,6 @@ export default class Reel {
             app.loader.resources.assets!.textures![6], //T 
         ];
 
-        //assign textures for the reels, 1 by 1
         if(position ===1){
             this.textures = this.reel1;
         } else if (position ===2){
@@ -77,10 +76,7 @@ export default class Reel {
         const NUMBER_OF_ROWS = 3;
         this.container.x = position * REEL_WIDTH;
 
-        //this shuffles what the reels display on the rows
-        //since we have 3 rows it divides the space by 3 symbols so they fit
         for (let i = 0; i < NUMBER_OF_ROWS + 1; i++) {
-            // const symbol = new PIXI.Sprite(this.textures[Math.floor(Math.random() * this.textures.length)]);
             var val = Math.random() * this.textures.length;
             const symbol = new PIXI.Sprite(this.textures[Math.floor(val)]);
 
@@ -96,8 +92,6 @@ export default class Reel {
         }
     }
 
-    //how many times the reels rotate
-    //how fast the reels rotate, whether all assets in the reels rotate per second or not etc.
     spinOneTime() {
         let speed = 50;
         let doneRunning = false;
@@ -105,7 +99,6 @@ export default class Reel {
 
         return new Promise<void>(resolve => {
             const tick = () => {
-                //loops over sprites and moves each sprites position 
                 for (let i = this.sprites.length - 1; i >= 0; i--) {
                     const symbol = this.sprites[i];
 

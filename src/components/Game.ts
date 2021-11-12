@@ -6,7 +6,6 @@ import ReelsContainer from './reelsContainerComponent/ReelsContainer';
 import Results from './resultsComponent/Results';
 
 export default class Game {
-    // app is created using a PIXI application
     public app: PIXI.Application;
     private playBtn: SpinButton;
     private reelsContainer: ReelsContainer;
@@ -18,7 +17,6 @@ export default class Game {
         new Loader(this.app, this.init.bind(this));
     }
 
-    //initialize the game and its components, 
     private init() {
         this.createScene();
         this.createSpinButton();
@@ -26,7 +24,6 @@ export default class Game {
         this.createResults();
     }
 
-    //create the background, basically the scene where the game will be displayed
     private createScene() {
         const bg = new Background(this.app.loader);
         this.app.stage.addChild(bg.sprite);
@@ -47,14 +44,12 @@ export default class Game {
         this.app.stage.addChild(this.Results.container);
     }
 
-    //this callback function spins the reels
     handleStart() {
         this.playBtn.setDisabled();
         this.reelsContainer.spin()
             .then(this.processSpinResult.bind(this));
     }
 
-    //Basically process the results
     private processSpinResult(isWin: boolean) {
         if (isWin) {
             this.Results.show();

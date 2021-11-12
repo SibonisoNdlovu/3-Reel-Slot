@@ -24,8 +24,7 @@ export default class ReelsContainer {
     }
 
     async spin() {
-        // Overall time of spinning = shiftingDelay * this.reels.length
-        const shiftingDelay = 250; //this is the time in seconds, kept it to 2.5seconds
+        const shiftingDelay = 250;
         const start = Date.now();
         const reelsToSpin = [...this.reels];
         
@@ -39,7 +38,6 @@ export default class ReelsContainer {
             if (!reelsToSpin.length) break;
         }
 
-        // reel.sprites[2] - Middle visible symbol of the reel
         return this.checkForWin(this.reels.map(reel => reel.sprites[2]));
     }
 
@@ -47,21 +45,17 @@ export default class ReelsContainer {
         while (true) {
             const spinningPromises = reelsToSpin.map(reel => reel.spinOneTime());
             await Promise.all(spinningPromises);
-            //once everything is done we reshuffle
             this.reshuffle();
             yield;
         }
     }
 
-    //checks if user won
     private checkForWin(symbols: Array<PIXI.Sprite>): boolean {
         const combination: Array<string> = new Array<string>()
         symbols.forEach(symbol => combination.push(symbol.texture.textureCacheIds[0]));
         return this.checkIfWinningCombination(combination);
     }
 
-    //This does a basic check for whether value already exists. 
-    //For testing purposes I made a win equal to 2 or more symbols in the payline
     private checkIfWinningCombination(combination: Array<string>): boolean {
             var valuesSoFar = Object.create(null);
             for (var i = 0; i < combination.length; ++i) {
@@ -74,7 +68,6 @@ export default class ReelsContainer {
             return false;
     }
 
-    //this method randomizes the reels
     private reshuffle() {
         this.reels.forEach(reel => {
             reel.sprites[0].texture = reel.textures[Math.floor(Math.random() * reel.textures.length)];

@@ -9,7 +9,6 @@ export default class Results {
         this.generate(app.screen.width, app.screen.height);
     }
 
-    //overlay only showed for a 3 seconds, this is a nice to have feature
     show() {
         this.container.visible = true;
         const id = window.setTimeout(this.hide.bind(this), 3000);
@@ -24,7 +23,6 @@ export default class Results {
         this.container.visible = false;
     }
 
-    //drawing up of the overlay using PIXI.Graphics
     private generate(appWidth: number, appHeight: number) {
         this.container.visible = false;
 
